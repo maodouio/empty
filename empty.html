@@ -6,6 +6,9 @@
   <h1>Welcome to Meteor!</h1>
 
   {{> hello}}
+  {{> userList}}
+  {{> createGroup}}
+  {{> groupsList}}
 </body>
 
 <template name="hello">
@@ -13,4 +16,41 @@
   <p>You've pressed the button {{counter}} times.</p>
 
   {{> loginButtons}}
+</template>
+
+
+<template name="userList">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>用户列表</h1>
+      <a class="btn btn-primary" href="{{pathFor 'postNew'}}" role="button">发表文章</a>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>username</th>
+            <th>Status</th>
+            <th>isfollowing</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each users}}
+          <tr>
+            <td><a>{{username}}</a></td>
+            <td>{{status}}</td>
+            <td>{{getFollowing}}</td>
+            <td>{{showPrettyTimestamp createdAt}}</td>
+            <td>
+              <a id="follow" class="btn btn-xs btn-default" role="button">Follow</a>
+              <a id="unfollow" class="btn btn-xs btn-danger delete-post" role="button">UnFollow</a>
+              </td>
+          </tr>
+          {{else}}
+          No posts
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
 </template>
