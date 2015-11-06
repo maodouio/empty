@@ -1,0 +1,52 @@
+<template name="createGroup">
+  <div class="row">
+    <h1>创建群组</h1>
+    <div class="col-lg-6">
+      <div class="input-group">
+        <input type="text" name="groupName" class="form-control" placeholder="请输入要创建的组名">
+        <span class="input-group-btn">
+          <button id="createGroup" class="btn btn-default" type="button">创建群组</button>
+        </span>
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+  </div><!-- /.row -->
+</template>
+
+<template name="groupsList">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>群组列表</h1>
+      <!-- <a class="btn btn-primary" href="{{pathFor 'postNew'}}" role="button">发表文章</a> -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>组名</th>
+            <th>创建者</th>
+            <th>组内成员</th>
+            <th>创建日期</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each groups}}
+          <tr>
+            <td><a>{{groupName}}</a></td>
+            <td>{{ownerName}}</td>
+            <td>{{users}}</td>
+            <td>{{showPrettyTimestamp createdAt}}</td>
+            <td>
+              <a id="join" class="btn btn-xs btn-default" role="button">Join</a>
+              <a id="leave" class="btn btn-xs btn-danger delete-post" role="button">Leave</a>
+              <a id="delete" class="btn btn-xs btn-danger delete-post" role="button">Delete</a>
+
+              </td>
+          </tr>
+          {{else}}
+          No posts
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</template>
