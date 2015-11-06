@@ -3,27 +3,29 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
+  <div class="container">
+  <h1>模块测试</h1>
+  {{> loginButtons}}
 
-  {{> hello}}
+
   {{> userList}}
   {{> createGroup}}
   {{> groupsList}}
+  </div>
 </body>
 
 <template name="hello">
   <button>Click Me</button>
   <p>You've pressed the button {{counter}} times.</p>
 
-  {{> loginButtons}}
 </template>
 
 
 <template name="userList">
   <div class="row">
     <div class="col-md-12">
-      <h1>用户列表</h1>
-      <a class="btn btn-primary" href="{{pathFor 'postNew'}}" role="button">发表文章</a>
+      <h3>用户列表</h3>
+      <!-- <a class="btn btn-primary" href="{{pathFor 'postNew'}}" role="button">发表文章</a> -->
       <table class="table table-striped">
         <thead>
           <tr>
