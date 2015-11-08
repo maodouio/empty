@@ -54,8 +54,8 @@ less@2.5.1
 livedata@1.0.15
 localstorage@1.0.5
 logging@1.0.8
-maodouio:friends@0.0.9
-maodouio:groups@0.0.7
+maodouio:friends@0.0.10
+maodouio:groups@0.0.8
 maodouio:posts@1.0.0
 matb33:collection-hooks@0.8.1
 meteor@1.1.10
