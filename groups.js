@@ -59,17 +59,20 @@ if (Meteor.isClient) {
 
   Template.groupsList.events({
     "click #join": function(event, template){
-
-      console.log(this._id);
-      console.log(Meteor.userId());
-      Meteor.call("joinGroup", this._id,function(error, result){
-        if(error){
-          console.log("error", error);
-        }
-        if(result){
-          console.log("已加入" + this.groupName);
-        }
-      });
+      if(!Meteor.userId()){
+        alert("您必须先登录才能加入群组");
+      } else {
+        // console.log(this._id);
+        // console.log(Meteor.userId());
+        Meteor.call("joinGroup", this._id,function(error, result){
+          if(error){
+            console.log("error", error);
+          }
+          if(result){
+            console.log("已加入" + this.groupName);
+          }
+        });
+      }
     },
     "click #leave": function(event, template){
 
