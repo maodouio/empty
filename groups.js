@@ -14,20 +14,46 @@ if (Meteor.isClient) {
       var idList = Groups.findOne(this._id).memberIds;
       var userList = _.map(idList, function(str){ return Meteor.users.findOne(str).username; });
       return userList;
+    },
+    isOwner: function() {
+      var userId = Meteor.userId();
+      var groupId = this._id;
+      var name = userId + groupId + "Owner";
+
+      Meteor.call("isOwner", Meteor.userId(), this._id, function(error, result){
+        (result)?Session.set(name, true):Session.set(name, false);
+      });
+      return Session.get(name);
+    },
+    isInGroup: function() {
+      var userId = Meteor.userId();
+      var groupId = this._id;
+      var name = userId + groupId;
+
+      Meteor.call("isInGroup", Meteor.userId(), this._id, function(error, result){
+        (result)?Session.set(name, true):Session.set(name, false);
+      });
+      return Session.get(name);
     }
   });
+
+
   Template.createGroup.events({
     "click #createGroup": function(e, t){
-      var groupName = $('[name=groupName]').val();
-      // console.log(groupName);
-      Meteor.call("createGroup", Meteor.userId(), groupName,function(error, result){
-        if(error){
-          console.log("error", error);
-        }
-        if(result){
-          console.log(groupName + "创建成功");
-        }
-      });
+      if(!Meteor.userId()){
+        alert("您必须先登录才能创建群组");
+      } else {
+        var groupName = $('[name=groupName]').val();
+        // console.log(groupName);
+        Meteor.call("createGroup", groupName, function(error, result){
+          if(error){
+            console.log("error", error);
+          }
+          if(result){
+            console.log(groupName + "创建成功");
+          }
+        });
+      }
     }
   });
 
@@ -36,7 +62,7 @@ if (Meteor.isClient) {
 
       console.log(this._id);
       console.log(Meteor.userId());
-      Meteor.call("joinGroup", Meteor.userId(), this._id,function(error, result){
+      Meteor.call("joinGroup", this._id,function(error, result){
         if(error){
           console.log("error", error);
         }
@@ -49,7 +75,7 @@ if (Meteor.isClient) {
 
       console.log(this._id);
       console.log(Meteor.userId());
-      Meteor.call("leaveGroup", Meteor.userId(), this._id,function(error, result){
+      Meteor.call("leaveGroup", this._id,function(error, result){
         if(error){
           console.log("error", error);
         }
@@ -60,7 +86,7 @@ if (Meteor.isClient) {
     },
     "click #delete": function(event, template){
 
-      Meteor.call("deleteGroup", this._id,function(error, result){
+      Meteor.call("removeGroup", this._id, function(error, result){
         if(error){
           console.log("error", error);
         }

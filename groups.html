@@ -35,10 +35,16 @@
             <td>{{users}}</td>
             <td>{{showPrettyTimestamp createdAt}}</td>
             <td>
-              <a id="join" class="btn btn-xs btn-default" role="button">Join</a>
-              <a id="leave" class="btn btn-xs btn-danger delete-post" role="button">Leave</a>
+              {{#if isInGroup}}
+                {{#unless isOwner}}
+                  <a id="leave" class="btn btn-xs btn-danger delete-post" role="button">Leave</a>
+                {{/unless}}
+              {{else}}
+                <a id="join" class="btn btn-xs btn-default" role="button">Join</a>
+              {{/if}}
+              {{#if isOwner}}
               <a id="delete" class="btn btn-xs btn-danger delete-post" role="button">Delete</a>
-
+              {{/if}}
               </td>
           </tr>
           {{else}}
